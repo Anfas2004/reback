@@ -8,6 +8,7 @@ const usignupschema = new sc({
     aadhar: String,
     password: String,
     confirmPassword: String,
+    status: String,
 })
 
 var usignupmodel =mongoose.model("usignup",usignupschema)

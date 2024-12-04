@@ -29,6 +29,54 @@ app.post('/pnew', upload.single('Pphoto'), async (request, response) => {
     }
 }
 )
+app.put('/pedit/:id', upload.single('Pphoto'), async (request, response) => {
+    try {
+        const id = request.params.id;
+        const { Pname, Pdescr, Price, Cname, Status } = request.body
+        let result = null;
+        if (request.file) {
+            console.log("hi")
+            const updatedData = {
+                Pname,
+                Pdescr,
+                Price,
+                Cname,
+                Status,
+                Pphoto: {
+                    data: request.file.buffer,
+                    contentType: request.file.mimetype,
+                }
+
+            };
+            console.log(updatedData)
+            result = await productmodel.findByIdAndUpdate(id,updatedData);
+
+        }
+        else {
+            const updatedData = {
+                Pname,
+                Pdescr,
+                Price,
+                Cname,
+                Status,
+            }
+            result = await productmodel.findByIdAndUpdate(id, updatedData);
+
+        }
+        if (!result) {
+            return response.status(404).json({ message: 'Item not found' });
+        }
+        response.status(200).json({ message: 'Item updates successfully', data: result });
+
+
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
 
 app.get('/pview',async(request,response)=>{
     var data = await productmodel.find();
