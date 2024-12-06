@@ -1,6 +1,7 @@
 const app = require('express').Router()
 const multer = require('multer');
 const productmodel = require("../model/product")
+const categorymodel = require("../model/category")
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -96,5 +97,10 @@ app.put('/pedit/:id',async(request,response)=>{
     response.send("Record updated")
 })
 
+//For retriving category data
+app.get('/caview',async(request,response)=>{
+    var data = await categorymodel.find({status:'ACTIVE'});
+    response.send(data)
+})
 
 module.exports = app

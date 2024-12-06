@@ -9,7 +9,7 @@ app.post('/uloginview',async(request,response)=>{
     console.log(request.body)
 
     try{
-        const user = await usignupmodel.findOne({username,password});
+        const user = await usignupmodel.findOne({username,password,status:'ACTIVE'});
 
         console.log(user)
         if(user){
