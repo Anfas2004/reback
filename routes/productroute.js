@@ -97,10 +97,18 @@ app.put('/pedit/:id',async(request,response)=>{
     response.send("Record updated")
 })
 
+
 //For retriving category data
 app.get('/caview',async(request,response)=>{
-    var data = await categorymodel.find({status:'ACTIVE'});
+    var data = await categorymodel.find({Status:'ACTIVE'});
     response.send(data)
 })
+
+// retrive a specific product details from it's id
+app.get('/pdetails/:id', async (request, response) => {
+    const id = request.params.id;
+    const result = await productmodel.find({ id: id});
+    response.json(result);
+  });
 
 module.exports = app
