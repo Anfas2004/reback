@@ -105,10 +105,28 @@ app.get('/caview',async(request,response)=>{
 })
 
 // retrive a specific product details from it's id
-app.get('/pdetails/:id', async (request, response) => {
-    const id = request.params.id;
-    const result = await productmodel.find({ id: id});
-    response.json(result);
-  });
+// app.get('/pdetails/:id', async (request, response) => {
+//     const id = request.params.id;
+//     const result = await productmodel.findById(id);
+//     response.json(result);
+//   });
 
+app.get('/pdetails/:id', async (request, response) => {
+ 
+   
+    try {
+        const id = request.params.id;
+    
+        // Using findById for better performance and clarity
+        const result = await productmodel.findById(id);
+
+        if (!result) {
+            return response.status(404).json({ message: 'Product not found' });
+        }
+
+        response.json(result);
+    } catch (error) {
+        response.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
 module.exports = app

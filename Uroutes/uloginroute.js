@@ -11,14 +11,16 @@ app.post('/uloginview',async(request,response)=>{
     try{
         const user = await usignupmodel.findOne({username,password,status:'ACTIVE'});
 
-        console.log(user)
+       
+        
         if(user){
-            response.json({success:true, message:'login successfully'});
-        }
+            response.json({success:true, message:'login successfully',userid: user._id });
+               }
         else{
             response.json({success:false, message:'Invalid username and password'});
         }
-    }catch(error){
+    }
+    catch(error){
         response.status(500).json({success:false, message:'error during login'})
     }
 });
