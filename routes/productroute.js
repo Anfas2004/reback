@@ -104,16 +104,8 @@ app.get('/caview',async(request,response)=>{
     response.send(data)
 })
 
-// retrive a specific product details from it's id
-// app.get('/pdetails/:id', async (request, response) => {
-//     const id = request.params.id;
-//     const result = await productmodel.findById(id);
-//     response.json(result);
-//   });
 
-app.get('/pdetails/:id', async (request, response) => {
- 
-   
+app.get('/pdetails/:id', async (request, response) => {   
     try {
         const id = request.params.id;
     
